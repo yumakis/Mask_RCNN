@@ -165,7 +165,7 @@ def display_instances(img_name, resultdir, image, boxes, masks, class_ids, class
     ax.imshow(masked_image.astype(np.uint8))
     if auto_show:
         plt.savefig(resultdir + img_name)
-        # plt.show()
+        plt.close()
 
 
 def display_differences(image,
