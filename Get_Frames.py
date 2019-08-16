@@ -34,10 +34,15 @@ try:
         os.makedirs(FRAMEDIR)
 except OSERROR:
     print('Error: Creating directory of data')
+
 while True:
     ret, frame = cap.read()
     count += 1
+    print("Test1")
+    print("ret = ", ret, ", count = ", count)
     if ret == True:
+        print("Test2")
+        # print("test")
         #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         if count % time_step == 0:                        #We just want to keep 1 frame every 5 seconds
             name = FRAMEDIR + vd_name + "_frame_" + str(int(count/time_step)) + '.jpg'

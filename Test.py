@@ -50,12 +50,15 @@ class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
                'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors',
                'teddy bear', 'hair drier', 'toothbrush']
 
+
+# class_names = ['BG', 'balloon']
+
 # define the test configuration
 class TestConfig(Config):
      NAME = "test"
      GPU_COUNT = 1
      IMAGES_PER_GPU = 1
-     NUM_CLASSES = 1 + 80
+     NUM_CLASSES = 1 + 1
 
 if len(sys.argv) < 2:
     print("Folder Frames required")
@@ -77,9 +80,9 @@ except OSERROR:
     print('Error: Creating directory of data')
 
 rcnn = MaskRCNN(mode='inference', model_dir = './', config=TestConfig())
-rcnn.load_weights('./mask_rcnn_coco.h5', by_name=True)
+rcnn.load_weights('./mask_rcnn_balloon_0030.h5', by_name=True)
 
-
+#
 for img_name in os.listdir(DATADIR):
     data = DATADIR + img_name
     img = load_img(data)
