@@ -530,9 +530,10 @@ def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
     for i in range (0, N):
         coord = boxes[i]
         obj_name = class_names[class_ids[i]]
-        line = str(obj_name) + ", " + str(boxes)
+        line = str(obj_name) + ", " + str(coord)
         print(line)
         data.append(line)
+    print(img_name, data)
 
     # # If no axis is passed, create one and automatically call show()
     # auto_show = False
