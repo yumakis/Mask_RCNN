@@ -58,7 +58,7 @@ class TestConfig(Config):
      NAME = "test"
      GPU_COUNT = 1
      IMAGES_PER_GPU = 1
-     NUM_CLASSES = 1 + 1
+     NUM_CLASSES = 1 + 80
 
 if len(sys.argv) < 2:
     print("Folder Frames required")
@@ -80,7 +80,7 @@ except OSERROR:
     print('Error: Creating directory of data')
 
 rcnn = MaskRCNN(mode='inference', model_dir = './', config=TestConfig())
-rcnn.load_weights('./mask_rcnn_balloon_0030.h5', by_name=True)
+rcnn.load_weights('./mask_rcnn_coco.h5', by_name=True)
 
 #
 for img_name in os.listdir(DATADIR):
@@ -91,6 +91,7 @@ for img_name in os.listdir(DATADIR):
     r = results[0]
     # draw_image_with_boxes(data, results[0]['rois'])
     # display_instances(img_name, RESULTDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
+    # print(r['rois'])
     write_logs(img_name, RESULTDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
 
 
