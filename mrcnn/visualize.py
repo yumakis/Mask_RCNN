@@ -535,7 +535,7 @@ def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
         obj_name = class_names[class_ids[i]]
         proba = scores[i]
         msg = str(obj_name) + ", " + str(coord) + ", " + str(proba)
-        print(line)
+        print(msg)
         file.write(msg)
         data.append(msg)
 
