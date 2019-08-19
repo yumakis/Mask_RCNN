@@ -528,7 +528,7 @@ def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
     log_name = img_name.split(".jpg")[0] + ".txt"
     # print(log_name)
     file = open(resultdir + log_name, "w")
-    data = []
+    # data = []
     # time_code
     for i in range (0, N):
         coord = boxes[i]
@@ -537,9 +537,9 @@ def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
         msg = str(obj_name) + ", " + str(coord) + ", " + str(proba) + "\n"
         print(msg)
         file.write(msg)
-        data.append(msg)
+        # data.append(msg)
 
-    print(img_name, data)
+    # print(img_name, data)
     file.close()
     # # If no axis is passed, create one and automatically call show()
     # auto_show = False
