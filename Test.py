@@ -3,7 +3,7 @@ import os
 import sys
 from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
-from mrcnn.visualize import display_instances
+from mrcnn.visualize import display_instances, write_logs
 from mrcnn.config import Config
 from mrcnn.model import MaskRCNN
 from matplotlib import pyplot
@@ -90,7 +90,8 @@ for img_name in os.listdir(DATADIR):
     results = rcnn.detect([img], verbose=0)
     r = results[0]
     # draw_image_with_boxes(data, results[0]['rois'])
-    display_instances(img_name, RESULTDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
+    # display_instances(img_name, RESULTDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
+    write_logs(img_name, RESULTDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
 
 
 
