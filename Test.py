@@ -68,8 +68,6 @@ else:
 
 video_name = data_frames.split('/')[-2].split('_Frames')[0]
 
-# sys.exit()
-
 DATADIR = data_frames
 RESULTDIR = "./test_results/" + video_name + "_results/"
 
@@ -91,7 +89,6 @@ for img_name in os.listdir(DATADIR):
     r = results[0]
     # draw_image_with_boxes(data, results[0]['rois'])
     # display_instances(img_name, RESULTDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
-    # print(r['rois'])
     write_logs(img_name, RESULTDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
 
 
