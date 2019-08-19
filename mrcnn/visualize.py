@@ -529,7 +529,7 @@ def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
     time = int(img_name.split(".jpg")[0].split("_")[-1])
     min = int(time*5/60)
     sec = time*5 - min*60
-    time_code = str(min) + ":" + str(sec) + "\n"
+    time_code = str(min).zfill(2) + "::" + str(sec).zfill(2) + "\n"
     file.write(time_code)
     for i in range (0, N):
         coord = boxes[i]
