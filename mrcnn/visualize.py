@@ -526,7 +526,7 @@ def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
     file = open(resultdir + log_name, "w")
     # data = []
 
-    time = log_name.split("_")[-1]
+    time = int(log_name.split("_")[-1])
     min = int(time*5/60)
     sec = time*5 - min*60
     time_code = str(min) + ":" + str(sec) + "\n"
