@@ -525,20 +525,22 @@ def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
     else:
         assert boxes.shape[0] == masks.shape[-1] == class_ids.shape[0]
 
-    log_name = img_name.split(".jpg")[0]
-    print(log_name)
+    log_name = img_name.split(".jpg")[0] + ".txt"
+    # print(log_name)
+    file = open(resultdir + log_name, "w")
     data = []
     # time_code
     for i in range (0, N):
         coord = boxes[i]
         obj_name = class_names[class_ids[i]]
         proba = scores[i]
-        line = str(obj_name) + ", " + str(coord) + ", " + str(proba)
+        msg = str(obj_name) + ", " + str(coord) + ", " + str(proba)
         print(line)
-        data.append(line)
+        file.write(msg)
+        data.append(msg)
 
     print(img_name, data)
-
+    file.close()
     # # If no axis is passed, create one and automatically call show()
     # auto_show = False
     # if not ax:
