@@ -525,15 +525,17 @@ def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
     else:
         assert boxes.shape[0] == masks.shape[-1] == class_ids.shape[0]
 
+    log_name = img_name.split(".jpg")[0]
+    print(log_name)
     data = []
     # time_code
     for i in range (0, N):
         coord = boxes[i]
         obj_name = class_names[class_ids[i]]
-        proba = score[i]
+        proba = scores[i]
         line = str(obj_name) + ", " + str(coord) + ", " + str(proba)
         print(line)
-        # data.append(line)
+        data.append(line)
 
     print(img_name, data)
 
