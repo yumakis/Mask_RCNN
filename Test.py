@@ -34,31 +34,31 @@ from matplotlib.patches import Rectangle
 #     pyplot.savefig(RESULTDIR + filename, bbox_inches='tight')
 
 
-class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
-               'bus', 'train', 'truck', 'boat', 'traffic light',
-               'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird',
-               'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear',
-               'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie',
-               'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball',
-               'kite', 'baseball bat', 'baseball glove', 'skateboard',
-               'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup',
-               'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple',
-               'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza',
-               'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed',
-               'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote',
-               'keyboard', 'cell phone', 'microwave', 'oven', 'toaster',
-               'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors',
-               'teddy bear', 'hair drier', 'toothbrush']
+# class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
+#                'bus', 'train', 'truck', 'boat', 'traffic light',
+#                'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird',
+#                'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear',
+#                'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie',
+#                'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball',
+#                'kite', 'baseball bat', 'baseball glove', 'skateboard',
+#                'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup',
+#                'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple',
+#                'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza',
+#                'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed',
+#                'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote',
+#                'keyboard', 'cell phone', 'microwave', 'oven', 'toaster',
+#                'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors',
+#                'teddy bear', 'hair drier', 'toothbrush']
 
 
-# class_names = ['BG', 'balloon']
+class_names = ['BG', 'ball']
 
 # define the test configuration
 class TestConfig(Config):
      NAME = "test"
      GPU_COUNT = 1
      IMAGES_PER_GPU = 1
-     NUM_CLASSES = 1 + 80
+     NUM_CLASSES = 1 + 1
 
 if len(sys.argv) < 2:
     print("Folder Frames required")
@@ -78,7 +78,7 @@ except OSERROR:
     print('Error: Creating directory of data')
 
 rcnn = MaskRCNN(mode='inference', model_dir = './', config=TestConfig())
-rcnn.load_weights('./mask_rcnn_coco.h5', by_name=True)
+rcnn.load_weights('./mask_rcnn_ball.h5', by_name=True)
 
 #
 for img_name in os.listdir(DATADIR):
@@ -88,8 +88,8 @@ for img_name in os.listdir(DATADIR):
     results = rcnn.detect([img], verbose=0)
     r = results[0]
     # draw_image_with_boxes(data, results[0]['rois'])
-    # display_instances(img_name, RESULTDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
-    write_logs(img_name, RESULTDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
+    display_instances(img_name, RESULTDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
+    # write_logs(img_name, RESULTDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
 
 
 
