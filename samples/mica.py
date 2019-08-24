@@ -35,7 +35,7 @@ import numpy as np
 import skimage.draw
 
 # Root directory of the project
-ROOT_DIR = os.path.abspath("../../")
+ROOT_DIR = os.path.abspath("../")
 
 # Import Mask RCNN
 sys.path.append(ROOT_DIR)  # To find local version of the library
@@ -54,7 +54,7 @@ DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "logs")
 ############################################################
 
 
-class MicasConfig(Config):
+class MicaConfig(Config):
     """Configuration for training on the toy  dataset.
     Derives from the base Config class and overrides some values.
     """
@@ -133,10 +133,14 @@ class MicaDataset(utils.Dataset):
             # else:
             #     polygons = [r['shape_attributes'] for r in a['regions']]
 
-            polygons = [r['shapes_attributes'] for r in a['regions'].values()]
-            objects = [s['region_attributes'] for s in a['regions'].values()]
-            class_ids = [int(n['category_id']) for n in objects]
-
+            if type(a['regions']) is dict:
+                polygons = [r['shapes_attributes'] for r in a['regions'].values()]
+                objects = [s['region_attributes'] for s in a['regions'].values()]
+                class_ids = [int(n['category_id']) for n in objects]
+            else
+                polygons = [r['shapes_attributes'] for r in a['regions']]
+                objects = [s['region_attributes'] for s in a['regions']]
+                class_ids = [int(n['category_id']) for n in objects]
             # load_mask() needs the image size to convert polygons to masks.
             # Unfortunately, VIA doesn't include it in JSON, so we must read
             # the image. This is only managable since the dataset is tiny.
