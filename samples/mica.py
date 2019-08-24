@@ -141,6 +141,7 @@ class MicaDataset(utils.Dataset):
                 polygons = [r['shape_attributes'] for r in a['regions']]
                 objects = [s['region_attributes'] for s in a['regions']]
                 class_ids = [int(n['category_id']) for n in objects]
+
             # load_mask() needs the image size to convert polygons to masks.
             # Unfortunately, VIA doesn't include it in JSON, so we must read
             # the image. This is only managable since the dataset is tiny.
@@ -181,7 +182,7 @@ class MicaDataset(utils.Dataset):
 
         # Return mask, and array of class IDs of each instance. Since we have
         # one class ID only, we return an array of 1s
-        print("info['class_ids']=", info['class_ids'])
+        # print("info['class_ids']=", info['class_ids'])
         class_ids = np.array(class_ids, dtype=np.int32)
 
         # return mask.astype(np.bool), np.ones([mask.shape[-1]], dtype=np.int32)
