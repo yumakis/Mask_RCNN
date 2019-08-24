@@ -137,7 +137,7 @@ class MicaDataset(utils.Dataset):
                 polygons = [r['shapes_attributes'] for r in a['regions'].values()]
                 objects = [s['region_attributes'] for s in a['regions'].values()]
                 class_ids = [int(n['category_id']) for n in objects]
-            else
+            else:
                 polygons = [r['shapes_attributes'] for r in a['regions']]
                 objects = [s['region_attributes'] for s in a['regions']]
                 class_ids = [int(n['category_id']) for n in objects]
