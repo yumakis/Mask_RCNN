@@ -508,11 +508,6 @@ def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
     class_ids: [num_instances]
     class_names: list of class names of the dataset
     scores: (optional) confidence scores for each box
-    title: (optional) Figure title
-    show_mask, show_bbox: To show masks and bounding boxes or not
-    figsize: (optional) the size of the image
-    colors: (optional) An array or colors to use with each object
-    captions: (optional) A list of strings to use as captions for each object
     """
     # Number of instances
     N = boxes.shape[0]
@@ -522,9 +517,9 @@ def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
     else:
         assert boxes.shape[0] == masks.shape[-1] == class_ids.shape[0]
 
+    #Get the file name and create the log 
     log_name = img_name.split(".jpg")[0] + ".txt"
     file = open(resultdir + log_name, "w")
-    # data = []
 
     time = int(img_name.split(".jpg")[0].split("_")[-1])
     min = int(time*5/60)
@@ -536,9 +531,6 @@ def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
         obj_name = class_names[class_ids[i]]
         proba = scores[i]
         msg = str(obj_name) + ", " + str(coord) + ", " + str(proba) + "\n"
-        # print(msg)
         file.write(msg)
-        # data.append(msg)
 
-    # print(img_name, data)
     file.close()
