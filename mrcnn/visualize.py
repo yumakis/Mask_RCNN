@@ -500,7 +500,7 @@ def display_weight_stats(model):
             ])
     display_table(table)
 
-def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
+def write_logs(img_name, logdir, image, boxes, masks, class_ids, class_names,
                       scores=None):
     """
     boxes: [num_instance, (y1, x1, y2, x2, class_id)] in image coordinates.
@@ -517,9 +517,9 @@ def write_logs(img_name, resultdir, image, boxes, masks, class_ids, class_names,
     else:
         assert boxes.shape[0] == masks.shape[-1] == class_ids.shape[0]
 
-    #Get the file name and create the log 
-    log_name = img_name.split(".jpg")[0] + ".txt"
-    file = open(resultdir + log_name, "w")
+    #Get the file name and create the log
+    log_name = logdir + img_name.split(".jpg")[0] + ".txt"
+    file = open(log_name, "w")
 
     time = int(img_name.split(".jpg")[0].split("_")[-1])
     min = int(time*5/60)
