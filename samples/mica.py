@@ -1,6 +1,6 @@
 """
 Mask R-CNN
-Train on the toy Balloon dataset and implement color splash effect.
+Train on the Mica dataset and implement color splash effect.
 
 Copyright (c) 2018 Matterport, Inc.
 Licensed under the MIT License (see LICENSE for details)
@@ -12,13 +12,13 @@ Usage: import the module (see Jupyter notebooks for examples), or run from
        the command line as such:
 
     # Train a new model starting from pre-trained COCO weights
-    python3 mica.py train --dataset=/path/to/balloon/dataset --weights=coco
+    python3 mica.py train --dataset=/path/to/mica/dataset --weights=coco
 
     # Resume training a model that you had trained earlier
-    python3 mica.py train --dataset=/path/to/balloon/dataset --weights=last
+    python3 mica.py train --dataset=/path/to/mica/dataset --weights=last
 
     # Train a new model starting from ImageNet weights
-    python3 mica.py train --dataset=/path/to/balloon/dataset --weights=imagenet
+    python3 mica.py train --dataset=/path/to/mica/dataset --weights=imagenet
 
     # Apply color splash to an image
     python3 mica.py splash --weights=/path/to/weights/file.h5 --image=<URL or path to file>
@@ -66,7 +66,7 @@ class MicaConfig(Config):
     IMAGES_PER_GPU = 2
 
     # Number of classes (including background)
-    NUM_CLASSES = 1 + 6  # Background + balloon
+    NUM_CLASSES = 1 + 5  # Background + 6 other classes
 
     # Number of training steps per epoch
     STEPS_PER_EPOCH = 10
@@ -88,11 +88,10 @@ class MicaDataset(utils.Dataset):
         """
         # Add classes. We have only one class to add.
         self.add_class("mica", 1, "ball")
-        self.add_class("mica", 2, "cube")
-        self.add_class("mica", 3, "cup")
-        self.add_class("mica", 4, "bottle")
-        self.add_class("mica", 5, "bowl")
-        self.add_class("mica", 6, "cylinder")
+        self.add_class("mica", 2, "cup")
+        self.add_class("mica", 3, "bottle")
+        self.add_class("mica", 4, "bowl")
+        self.add_class("mica", 5, "cylinder")
 
 
         # Train or validation dataset?
@@ -164,7 +163,7 @@ class MicaDataset(utils.Dataset):
             one mask per instance.
         class_ids: a 1D array of class IDs of the instance masks.
         """
-        # If not a balloon dataset image, delegate to parent class.
+        # If not a mica dataset image, delegate to parent class.
         image_info = self.image_info[image_id]
         if image_info["source"] != "mica":
             return super(self.__class__, self).load_mask(image_id)
@@ -229,13 +228,13 @@ if __name__ == '__main__':
 
     # Parse command line arguments
     parser = argparse.ArgumentParser(
-        description='Train Mask R-CNN to detect balloons.')
+        description='Train Mask R-CNN to detect micas.')
     parser.add_argument("command",
                         metavar="<command>",
                         help="'train' or 'splash'")
     parser.add_argument('--dataset', required=False,
-                        metavar="/path/to/balloon/dataset/",
-                        help='Directory of the Balloon dataset')
+                        metavar="/path/to/mica/dataset/",
+                        help='Directory of the Mica dataset')
     parser.add_argument('--weights', required=True,
                         metavar="/path/to/weights.h5",
                         help="Path to weights .h5 file or 'coco'")
@@ -263,7 +262,7 @@ if __name__ == '__main__':
     if args.command == "train":
         config = MicaConfig()
     else:
-        class InferenceConfig(BalloonConfig):
+        class InferenceConfig(MicaConfig):
             # Set batch size to 1 since we'll be running inference on
             # one image at a time. Batch size = GPU_COUNT * IMAGES_PER_GPU
             GPU_COUNT = 1
