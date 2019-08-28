@@ -2,10 +2,6 @@
 Mask R-CNN
 Train on the Mica dataset and implement color splash effect.
 
-Copyright (c) 2018 Matterport, Inc.
-Licensed under the MIT License (see LICENSE for details)
-Written by Waleed Abdulla
-
 ------------------------------------------------------------
 
 Usage: import the module (see Jupyter notebooks for examples), or run from
@@ -127,11 +123,6 @@ class MicaDataset(utils.Dataset):
             # the outline of each object instance. These are stores in the
             # shape_attributes (see json format above)
             # The if condition is needed to support VIA versions 1.x and 2.x.
-            # if type(a['regions']) is dict:
-            #     polygons = [r['shape_attributes'] for r in a['regions'].values()]
-            # else:
-            #     polygons = [r['shape_attributes'] for r in a['regions']]
-
             if type(a['regions']) is dict:
                 polygons = [r['shape_attributes'] for r in a['regions'].values()]
                 objects = [s['region_attributes'] for s in a['regions'].values()]
@@ -180,7 +171,7 @@ class MicaDataset(utils.Dataset):
             mask[rr, cc, i] = 1
 
         # Return mask, and array of class IDs of each instance. Since we have
-        # one class ID only, we return an array of 1s
+        # five class ID only, we return an array of 5s
         # print("info['class_ids']=", info['class_ids'])
         class_ids = np.array(class_ids, dtype=np.int32)
 

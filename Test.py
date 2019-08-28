@@ -1,3 +1,18 @@
+"""
+Mica Project
+Test a Mask_RCNN model (coco or mica) on given dataself.
+
+------------------------------------------------------------
+
+Usage: import the module, run from the command line as such:
+
+    #Test the given model on a video with Mica weights:
+    python3 Test.py --video=/path/to/video --weights=mica
+
+    #Apply mask to Frames of a video:
+    python3 Test.py --data=/path/to/data --weights=mica --mask=True
+
+"""
 import os
 import sys
 import cv2
@@ -53,7 +68,7 @@ coco_class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
                'teddy bear', 'hair drier', 'toothbrush']
 
 
-mica_class_names = ['BG', 'ball', 'cube', 'cup', 'bottle', 'bowl', 'cylinder']
+mica_class_names = ['BG', 'ball', 'cup', 'bottle', 'bowl', 'cylinder']
 
 # define the test configuration
 class TestMicaConfig(Config):
