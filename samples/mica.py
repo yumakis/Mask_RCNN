@@ -126,7 +126,7 @@ class MicaDataset(utils.Dataset):
             if type(a['regions']) is dict:
                 polygons = [r['shape_attributes'] for r in a['regions'].values()]
                 objects = [s['region_attributes'] for s in a['regions'].values()]
-                class_ids = [int(n['category_id']) for n in objects]
+                class_ids = [int(n['category_id']) for n in objects]                #id of the object
             else:
                 polygons = [r['shape_attributes'] for r in a['regions']]
                 objects = [s['region_attributes'] for s in a['regions']]
