@@ -1,6 +1,6 @@
 """
 Mask R-CNN
-Train on the Mica dataset and implement color splash effect.
+Train on the goal dataset and implement color splash effect.
 
 ------------------------------------------------------------
 
@@ -55,7 +55,7 @@ class GoalConfig(Config):
     Derives from the base Config class and overrides some values.
     """
     # Give the configuration a recognizable name
-    NAME = "mica"
+    NAME = "goal"
 
     # We use a GPU with 12GB memory, which can fit two images.
     # Adjust down if you use a smaller GPU.
@@ -78,7 +78,7 @@ class GoalConfig(Config):
 class GoalDataset(utils.Dataset):
 
     def load_goal(self, dataset_dir, subset):
-        """Load a subset of the Mica dataset.
+        """Load a subset of the goal dataset.
         dataset_dir: Root directory of the dataset.
         subset: Subset to load: train or val
         """
@@ -177,7 +177,7 @@ class GoalDataset(utils.Dataset):
     def image_reference(self, image_id):
         """Return the path of the image."""
         info = self.image_info[image_id]
-        if info["source"] == "mica":
+        if info["source"] == "goal":
             return info["path"]
         else:
             super(self.__class__, self).image_reference(image_id)
@@ -187,7 +187,7 @@ def train(model):
     """Train the model."""
     # Training dataset.
     dataset_train = GoalDataset()
-    dataset_train.load_mica(args.dataset, "train")
+    dataset_train.load_goal(args.dataset, "train")
     dataset_train.prepare()
 
     # Validation dataset
@@ -220,7 +220,7 @@ if __name__ == '__main__':
                         metavar="<command>",
                         help="'train' or 'splash'")
     parser.add_argument('--dataset', required=False,
-                        metavar="/path/to/mica/dataset/",
+                        metavar="/path/to/goal/dataset/",
                         help='Directory of the Goal dataset')
     parser.add_argument('--weights', required=True,
                         metavar="/path/to/weights.h5",
