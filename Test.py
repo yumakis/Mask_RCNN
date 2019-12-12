@@ -166,7 +166,7 @@ def TestModel(model, image_path=None, video_path=None, mask=None):
         # draw_image_with_boxes(data, results[0]['rois'])
         if mask:
             display_instances(img_name, RESULTDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
-        write_logs(img_name, LOGDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
+        # write_logs(img_name, LOGDIR, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
 
 
 if __name__ == '__main__':
